@@ -1,4 +1,6 @@
+'use client'
 import Nav from '@/components/Nav'
+import Provider from '@/components/Provider'
 import '@/styles/global.css'
 
 export const metadata = {
@@ -10,16 +12,19 @@ type Props = {
     children: React.ReactNode
 }
 function Layout({ children }: Props) {
+    
     return (
         <html>
             <body>
-                <div className='main'>
-                    <div className='gradient' />
-                </div>
-                <main className='app'>
-                    <Nav />
-                    {children}
-                </main>
+                <Provider>
+                    <div className='main'>
+                        <div className='gradient' />
+                    </div>
+                    <main className='app'>
+                        <Nav />
+                        {children}
+                    </main>
+                </Provider>
             </body>
         </html>
     )
