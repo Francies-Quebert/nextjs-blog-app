@@ -7,15 +7,15 @@ import { signIn, signOut, useSession, getProviders, LiteralUnion, ClientSafeProv
 import { BuiltInProviderType } from 'next-auth/providers'
 
 function Nav() {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
   const [providers, setProvidersS] = useState<Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider> | null>(null)
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
 
   useEffect(() => {
     const setProviders = async () => {
-      // const response = await getProviders();
-      // setProvidersS(response)
+      const response = await getProviders();
+      setProvidersS(response)
     }
     setProviders()
   }, [])
@@ -29,9 +29,9 @@ function Nav() {
       </Link>
       {/* Desktop  Nav bar */}
       <div className='sm:flex hidden'>
-        {isUserLoggedIn ? (<div className='flex gap-3 md:gap-5'>
+        {session?.user ? (<div className='flex gap-3 md:gap-5'>
           <Link
-            href={'/create-promt'}
+            href={'/create-prompt'}
             className='black_btn'>
             Create a Post
           </Link>
@@ -60,7 +60,7 @@ function Nav() {
                 type='button'
                 key={prv.name}
                 onClick={() => signIn(prv.id)}
-                className='vlack_btn'
+                className='black_btn'
               >
                 Sign In
               </button>
@@ -70,11 +70,11 @@ function Nav() {
       </div>
       {/* Mobile Nav bar */}
       <div className='sm:hidden flex relative'>
-        {isUserLoggedIn ?
+        {session?.user ?
           <div className='flex'>
             <Image
-              src='/assets/images/logo.svg'
-              width={37}
+              src={session?.user?.image || ''}
+              width={37}                  
               height={37}
               className='rounded-full'
               alt='profile'
@@ -88,7 +88,7 @@ function Nav() {
                 >
                   My Profile
                 </Link>
-                <Link href='/create-promt'
+                <Link href='/create-prompt'
                   className='dropdown_link'
                   onClick={() => setToggleDropdown(false)}
                 >
