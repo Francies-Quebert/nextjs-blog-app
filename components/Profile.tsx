@@ -6,8 +6,8 @@ interface ProfileProps {
   name: string | null,
   desc: string,
   data: any[],
-  handleEdit: (post:allPostType) => void,
-  handleDelete: (post:allPostType) => void
+  handleEdit?: (post:allPostType) => void,
+  handleDelete?: (post:allPostType) => void
 }
 
 function Profile({ name, desc, data, handleEdit, handleDelete }:ProfileProps) {
