@@ -3,10 +3,10 @@ import Nav from '@/components/Nav'
 import Provider from '@/components/Provider'
 import '@/styles/global.css'
 
-export const metadata = {
-    title: 'Next App Promtopia',
-    description: 'Discover and share AI prompt '
-}
+// export const metadata = {
+//     title: 'Next App Promtopia',
+//     description: 'Discover and share AI prompt '
+// }
 
 type Props = {
     children: React.ReactNode
