@@ -13,7 +13,7 @@ const handler = NextAuth({
         })
     ],
     callbacks: {
-        async session({ session, user }: { session: SessionExtend, user: any }) {
+        async session({ session }: { session: SessionExtend, user: any }) {
             const sessionUser = await User.findOne({ email: session?.user?.email });
             if (session.user) session.user.id = sessionUser._id.toString();
             return session;
@@ -45,6 +45,3 @@ const handler = NextAuth({
 })
 
 export { handler as GET, handler as POST }
-// export async function GET(request: Request) {
-//     return ''
-// }

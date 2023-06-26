@@ -10,7 +10,7 @@ interface PromptCard {
     post:allPostType,
     handleEdit?:()=>void,
     handleDelete?:()=>void,
-    handleTagClick:(tagName: string)=>void
+    handleTagClick?:(tagName: string)=>void
 }
 
 const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }: PromptCard) => {
@@ -31,7 +31,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }: PromptCa
         navigator.clipboard.writeText(post.prompt);
         setTimeout(() => setCopied(false), 3000);
     };
-console.log(post?.creator,'post?.creator')
+
     return (
         <div className='prompt_card'>
             <div className='flex justify-between items-start gap-5'>
@@ -79,7 +79,7 @@ console.log(post?.creator,'post?.creator')
                 #{post.tag}
             </p>
 
-            {(session as SessionExtend).user?.id === post.creator._id && pathName === "/profile" && (
+            {(session as SessionExtend)?.user?.id === post.creator._id && pathName === "/profile" && (
                 <div className='mt-5 flex-center gap-4 border-t border-gray-100 pt-3'>
                     <p
                         className='font-inter text-sm green_gradient cursor-pointer'
