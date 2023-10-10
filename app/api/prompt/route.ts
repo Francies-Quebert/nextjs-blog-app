@@ -6,7 +6,11 @@ export const GET = async () => {
     try {
         await connectToDB()
 
-        const prompts = await Prompt.find({}).populate('creator')
+        let prompts = await Prompt.find({}).populate('creator')
+        prompts = prompts.map(prompt => {
+            prompt.creator.email = prompt.creator.email.replace(/(?<=.{3}).(?=[^@]*?.@)/g, "X")
+            return prompt
+        })
         return new Response(JSON.stringify(prompts), { status: 200 })
     } catch (error) {
         return new NextResponse("Failed to fetch all prompts", { status: 500 })
